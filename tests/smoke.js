@@ -19,6 +19,7 @@ const { pathToFileURL } = require("url");
 const { chromium } = require("playwright-core");
 
 const PAGE_URL = pathToFileURL(path.join(__dirname, "..", "index.html")).href;
+const CHANNEL = process.env.PW_CHANNEL || "msedge";
 const MOBILE = { width: 390, height: 844 };
 const DESKTOP = { width: 1440, height: 900 };
 
@@ -69,7 +70,7 @@ async function scratch(page) {
 }
 
 (async () => {
-  const browser = await chromium.launch({ channel: "msedge", headless: true });
+  const browser = await chromium.launch({ channel: CHANNEL, headless: true });
 
   /* ---------- main page ------------------------------------------- */
   const page = await newPage(browser, MOBILE);

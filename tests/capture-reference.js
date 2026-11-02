@@ -51,6 +51,7 @@ function argValue(flag, fallback) {
 const LABEL = argValue("--label", "baseline");
 const OUT = path.join(__dirname, "reference", LABEL);
 const PAGE_URL = pathToFileURL(path.join(ROOT, "index.html")).href;
+const CHANNEL = process.env.PW_CHANNEL || "msedge";
 const METRICS_FILE = path.join(OUT, "metrics.json");
 
 const VIEWPORTS = [
@@ -249,7 +250,7 @@ async function capture(page, viewport, errors) {
 (async () => {
   fs.mkdirSync(OUT, { recursive: true });
 
-  const browser = await chromium.launch({ channel: "msedge", headless: true });
+  const browser = await chromium.launch({ channel: CHANNEL, headless: true });
   const consoleErrors = [];
   const pageErrors = [];
   const failedRequests = [];
