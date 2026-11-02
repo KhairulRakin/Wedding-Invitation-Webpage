@@ -172,7 +172,20 @@ async function capture(page, viewport, errors) {
   await page.evaluate(() => {
     for (let i = 1; i < 5000; i++) window.clearInterval(i);
   });
-  await page.waitForTimeout(200);
+
+  // Walk the whole document once so every image is decoded and painted before
+  // the full-page capture; otherwise off-screen photos can composite blank.
+  await page.evaluate(async () => {
+    const step = Math.max(400, window.innerHeight * 0.8);
+    for (let y = 0; y < document.documentElement.scrollHeight; y += step) {
+      window.scrollTo(0, y);
+      await new Promise((resolve) =>
+        requestAnimationFrame(() => setTimeout(resolve, 60)),
+      );
+    }
+    window.scrollTo(0, 0);
+  });
+  await page.waitForTimeout(400);
 
   const fingerprint = await page.evaluate(
     ({ targets, props }) => {
