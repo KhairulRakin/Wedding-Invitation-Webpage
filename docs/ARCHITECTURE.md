@@ -55,6 +55,12 @@ both the scratch card and the burst particles. Externalising the sprite breaks
 `objectBoundingBox` clip-path scaling in several browsers, so the symbol sheet
 remains part of `index.html`.
 
+**Gallery photos load eagerly.** `loading="lazy"` was tried and reverted: the
+track is preloaded in full anyway (3.2 MB), so deferring three ~150 KB photos
+saves little, and the slideshow can advance to a not-yet-decoded image. They
+also keep the browser's default decoding rather than `decoding="async"`, which
+showed no measurable benefit at this size.
+
 ## Boot order
 
 `main.js` calls modules in this order:
