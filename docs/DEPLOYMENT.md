@@ -2,9 +2,77 @@
 
 ## Hosting
 
-The site is fully static. Upload the repository root to any static host
-(Netlify, Cloudflare Pages, GitHub Pages, S3, nginx). There is no build step and
-no server-side code.
+The site is fully static — no server-side code, no runtime dependencies. Netlify
+is the current host; any static host (Cloudflare Pages, GitHub Pages, S3, nginx)
+works the same way.
+
+## Netlify
+
+`netlify.toml` pins the settings, so nothing needs to be typed into the dashboard
+beyond authorising the repository:
+
+```toml
+[build]
+  command = "node scripts/build.js"
+  publish = "dist"
+```
+
+`scripts/build.js` copies only the guest-facing files into `dist/`:
+
+```
+index.html
+assets/
+robots.txt
+_headers
+```
+
+That keeps `tests/` (about 10 MB of reference screenshots), `docs/`,
+`package.json` and `node_modules/` off the CDN. A local build reports the
+payload:
+
+```powershell
+npm run build     # dist/ · 27 files · 4.34 MB
+```
+
+`dist/` is generated and git-ignored; Netlify recreates it on every push.
+
+### Connect the repository (continuous deploys)
+
+1. <https://app.netlify.com/start> → **Import an existing project** → **GitHub**.
+2. Authorise Netlify for the private repo `KhairulRakin/Wedding-Invitation-Webpage`.
+3. Leave the build command and publish directory blank — `netlify.toml` supplies
+   both. Click **Deploy**.
+
+Every push to `main` then redeploys automatically.
+
+### Netlify Drop (no repository link)
+
+Drag the generated `dist` folder onto <https://app.netlify.com/drop>. This is the
+fastest route to a live URL, but it does not redeploy on push until the site is
+claimed and linked to Git under **Site configuration → Build & deploy**.
+
+### Netlify CLI
+
+```powershell
+npm install -g netlify-cli
+netlify login                      # opens the browser once
+netlify init                       # link to the existing site
+netlify deploy --prod --dir dist
+```
+
+`netlify deploy --prod --dir dist` also works without `netlify init` when a site
+is already selected.
+
+### Verify the headers took effect
+
+```powershell
+curl.exe -sI https://<site>.netlify.app/ | Select-String -Pattern 'cache-control|x-content|referrer'
+curl.exe -sI https://<site>.netlify.app/assets/css/tokens.css | Select-String cache-control
+```
+
+`index.html` must revalidate (`max-age=0, must-revalidate`) and `/assets/*` must
+be immutable. If those do not appear, `_headers` was not uploaded to the publish
+root.
 
 Files that must ship:
 

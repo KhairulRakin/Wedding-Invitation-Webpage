@@ -1,0 +1,14 @@
+# Netlify configuration
+#
+# The site is static: the "build" only copies the guest-facing files into
+# dist/ so tests/, docs/, package.json and node_modules never reach the CDN.
+
+[build]
+  command = "node scripts/build.js"
+  publish = "dist"
+
+# Cache and security headers live in _headers, which is copied into dist/.
+# Netlify reads it from the root of the publish directory.
+
+# Single page: missing paths should not silently serve the invitation, so no
+# catch-all rewrite is defined.

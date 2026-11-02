@@ -4,6 +4,7 @@
   "private": true,
   "description": "Wedding invitation for Md. Shahed & Ms. Priyanka — 27 January 2027, Kara Convention Center, Dhaka.",
   "scripts": {
+    "build": "node scripts/build.js",
     "serve": "npx --yes serve . -l 4173",
     "test": "node tests/smoke.js",
     "test:reference": "node tests/capture-reference.js --label current && node tests/diff-reference.js baseline current",

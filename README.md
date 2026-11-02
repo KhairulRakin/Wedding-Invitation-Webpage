@@ -1,7 +1,8 @@
 # Wedding Invitation
 
-A single-page wedding invitation with Vanilla HTML, CSS and JavaScript — no build
-step and no runtime dependencies.
+A single-page wedding invitation with Vanilla HTML, CSS and JavaScript — no
+runtime dependencies and nothing to compile. The only build step is the deploy
+copy that keeps internal files off the CDN.
 
 ## Open it
 
@@ -22,6 +23,8 @@ assets/css/             4 stylesheets, fixed load order
 assets/js/              12 modules, fixed load order
 assets/img/             backgrounds, gallery, brand
 assets/audio/           background track
+scripts/build.js        copies the guest-facing files into dist/
+netlify.toml            Netlify build settings
 docs/                   architecture, content, deployment, QA
 tests/                  interaction suite + visual reference harness
 ```
@@ -45,8 +48,15 @@ to use Chrome instead.
 
 ## Deployment
 
-Any static host works. See `docs/DEPLOYMENT.md` for cache headers, the
-FormSubmit activation step, and the pre-release checklist.
+Hosted on Netlify with continuous deploys from `main`:
+
+```powershell
+npm run build   # dist/ · 27 files · 4.34 MB
+```
+
+`netlify.toml` runs that build and publishes `dist/`. See
+`docs/DEPLOYMENT.md` for the import steps, cache headers, the FormSubmit
+activation step, and the pre-release checklist.
 
 ## Browser support
 
