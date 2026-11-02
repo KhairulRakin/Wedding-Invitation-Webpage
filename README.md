@@ -1,7 +1,6 @@
-# Md. Shahed & Ms. Priyanka — Wedding Invitation
+# Wedding Invitation
 
-A single-page wedding invitation for **Wednesday, 27 January 2027** at
-**Kara Convention Center, Dhaka**. Vanilla HTML, CSS and JavaScript — no build
+A single-page wedding invitation with Vanilla HTML, CSS and JavaScript — no build
 step and no runtime dependencies.
 
 ## Open it
