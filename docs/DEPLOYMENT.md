@@ -78,6 +78,23 @@ fixed. Once the domain is known, add:
 <meta property="og:image:alt" content="Md. Shahed and Ms. Priyanka" />
 ```
 
+## Performance backlog
+
+These are deliberate follow-ups, not oversights. The authoring environment has
+no image or audio encoders (`ffmpeg`, `magick`, `cwebp`, `avifenc` are all
+absent), so the binary conversions were left untouched rather than applied
+blindly.
+
+| Item | Current | Target | How |
+|---|---|---|---|
+| Backgrounds + gallery | JPEG, 134–202 KB each | WebP/AVIF ~40–70 KB | Encode once, wrap gallery in `<picture>` with JPEG fallback, keep the same filenames for the CSS backgrounds or update the four `url()` rules |
+| Audio | 3.2 MB MP3, 103 s | ~1.4 MB mono 96–128 kbps | `ffmpeg -i in.mp3 -ac 1 -b:a 112k out.mp3` |
+| Fonts | Google Fonts, 4 families | Self-hosted subset | Download the woff2 files, drop the `fonts.googleapis.com` links, add `font-display: swap` locally |
+| RSVP endpoint | Plain address in config | Hashed FormSubmit endpoint | Activate the inbox first, then replace `rsvp.endpoint` |
+| Link preview | No `og:image` | Absolute image URL | Add once the domain is fixed, per the section above |
+
+After any of these, re-run `npm test` and `npm run test:reference`.
+
 ## Pre-release checklist
 
 1. `npm test` → 29/29.
