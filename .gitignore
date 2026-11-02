@@ -1,0 +1,22 @@
+# --- OS / editor ---
+Thumbs.db
+desktop.ini
+.DS_Store
+.vscode/
+.idea/
+
+# --- Dependencies (dev-only; the shipped site has zero runtime deps) ---
+node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# --- Test artefacts ---
+test-results/
+playwright-report/
+blob-report/
+.playwright/
+
+# --- Local scratch ---
+*.local
+*.tmp
+*.log
