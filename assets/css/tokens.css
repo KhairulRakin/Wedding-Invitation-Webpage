@@ -1,0 +1,76 @@
+/* ============================================================
+   Design tokens, reset and base typography
+   Load order: tokens -> components -> layout -> responsive
+   ============================================================ */
+/* ============================================================
+   ROYAL CREST — CREAM, BURGUNDY & ROSES
+   ============================================================ */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --maroon: #71352b;
+  --maroon-deep: #57251f;
+  --maroon-soft: #8e5146;
+  --ink: #5b2b23;
+  --cream: #f9f6f1;
+  --parchment: #f3ead9;
+  --parchment-2: #eee2cf;
+  --floral-bg: #ddcebb;
+  --gold: #c2a171;
+  --line: rgba(113, 53, 43, 0.24);
+  --serif: "Lora", Georgia, serif;
+  --book: "Cormorant Garamond", Georgia, serif;
+  --script: "Dancing Script", cursive;
+  --names: "Great Vibes", cursive;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+body {
+  font-family: var(--book);
+  color: var(--maroon);
+  background: var(--floral-bg);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+body.locked {
+  overflow: hidden;
+  height: 100vh;
+}
+img {
+  display: block;
+  max-width: 100%;
+}
+a {
+  color: inherit;
+}
+button {
+  font: inherit;
+  cursor: pointer;
+}
+::selection {
+  background: rgba(113, 53, 43, 0.18);
+}
+
+.icon {
+  width: 1em;
+  height: 1em;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex: none;
+}
+.icon.fill {
+  fill: currentColor;
+  stroke: none;
+}
+

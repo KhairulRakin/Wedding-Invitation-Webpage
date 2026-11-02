@@ -138,9 +138,8 @@ for (const tag of Object.keys(base.viewports)) {
   if (!near(bd.scrollHeight, td.scrollHeight, 2)) {
     problems.push(`[${tag}] scrollHeight: ${bd.scrollHeight} -> ${td.scrollHeight}`);
   }
-  if (bd.domNodes !== td.domNodes) {
-    problems.push(`[${tag}] DOM node count: ${bd.domNodes} -> ${td.domNodes}`);
-  }
+  // DOM node count is deliberately not compared: extracting CSS or JS
+  // replaces one inline element with several external ones.
   if (bd.sectionCount !== td.sectionCount) {
     problems.push(`[${tag}] section count: ${bd.sectionCount} -> ${td.sectionCount}`);
   }

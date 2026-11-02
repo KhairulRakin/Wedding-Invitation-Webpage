@@ -1,0 +1,78 @@
+/* ============================================================
+   Desktop enhancements and reduced-motion overrides
+   Load order: tokens -> components -> layout -> responsive
+   ============================================================ */
+/* ============================================================
+   DESKTOP
+   ============================================================ */
+@media (min-width: 700px) {
+  .section {
+    padding-top: 5.25rem;
+    padding-bottom: 5.25rem;
+  }
+  .section + .section {
+    padding-top: 4.25rem;
+  }
+  .script-heading {
+    font-size: 3rem;
+  }
+  .scratch-wrap {
+    width: 250px;
+    margin-top: 2rem;
+  }
+  .dress-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+  .dress-col {
+    padding: 0 2rem;
+  }
+  .dress-col + .dress-col {
+    border-left: 1px solid rgba(113, 53, 43, 0.22);
+  }
+  .map-art {
+    height: 270px;
+  }
+  .hero-content {
+    padding-bottom: 8rem;
+  }
+  .intro-invited {
+    top: 69%;
+  }
+}
+@media (min-width: 1100px) {
+  .hero-bg {
+    background-position: center 44%;
+  }
+  .section {
+    padding-left: 6rem;
+    padding-right: 6rem;
+  }
+}
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+  .petals {
+    display: none;
+  }
+  .hero-content > * {
+    opacity: 1;
+    transform: none;
+  }
+}
