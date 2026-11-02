@@ -88,19 +88,25 @@ const problems = [];
 const sizeByName = (metrics) => {
   const map = new Map();
   for (const file of metrics.inventory) {
-    if (file.path.startsWith("tests/reference/")) continue;
+    if (file.path.startsWith("tests/")) continue;
     const name = path.basename(file.path);
     map.set(name, (map.get(name) || 0) + file.bytes);
   }
   return map;
 };
 
+const BINARY = /\.(jpe?g|png|webp|avif|gif|mp3|wav|ogg|m4a|ico|woff2?|ttf|otf)$/i;
+
 const baseSizes = sizeByName(base);
 const targetSizes = sizeByName(target);
 for (const [name, bytes] of baseSizes) {
-  if (!targetSizes.has(name)) problems.push(`asset missing after refactor: ${name}`);
-  else if (targetSizes.get(name) !== bytes) {
-    problems.push(`asset changed size: ${name} (${bytes} -> ${targetSizes.get(name)})`);
+  if (!targetSizes.has(name)) {
+    problems.push(`asset missing after refactor: ${name}`);
+  } else if (BINARY.test(name) && targetSizes.get(name) !== bytes) {
+    // Binary assets must survive a move byte-for-byte. Text files may grow or
+    // shrink legitimately (path rewrites, extraction), so their size is not
+    // part of the gate; rendering and console checks cover those.
+    problems.push(`binary asset changed size: ${name} (${bytes} -> ${targetSizes.get(name)})`);
   }
 }
 
@@ -184,10 +190,11 @@ for (const tag of Object.keys(base.viewports)) {
 
 /* ---- report --------------------------------------------------------- */
 if (!problems.length) {
+  const payloadFiles = base.inventory.filter((f) => !f.path.startsWith("tests/")).length;
   console.log(`PASS  ${baseLabel} == ${targetLabel}`);
   console.log(
     `${Object.keys(base.viewports).length} viewports · ` +
-      `${base.inventory.length} files · console errors ${target.consoleErrors.length}`,
+      `${payloadFiles} payload files · console errors ${target.consoleErrors.length}`,
   );
   process.exit(0);
 }

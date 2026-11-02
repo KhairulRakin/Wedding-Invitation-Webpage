@@ -139,9 +139,9 @@ function walk(dir, acc) {
     if (entry.name === ".git" || entry.name === "node_modules") continue;
     const full = path.join(dir, entry.name);
     const relative = path.relative(ROOT, full).split(path.sep).join("/");
-    // Reference captures are evidence, not payload; including them would
-    // double-count once a second run exists.
-    if (relative === "tests/reference" || relative.startsWith("tests/reference/")) continue;
+    // Inventory is the deployable payload: exclude the test harness and its
+    // reference captures so a second run cannot double-count them.
+    if (relative === "tests" || relative.startsWith("tests/")) continue;
     if (entry.isDirectory()) walk(full, acc);
     else acc.push(full);
   }
