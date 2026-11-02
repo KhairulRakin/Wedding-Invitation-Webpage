@@ -9,9 +9,12 @@
   var Wedding = window.Wedding;
   var bgMusic = Wedding.el("bgMusic");
   var musicBtn = Wedding.el("musicBtn");
-  var MUSIC_VOLUME = 0.55;
+  var musicConfig = window.WEDDING.music;
+  var MUSIC_VOLUME = musicConfig.volume;
   var musicOn = false;
   var fadeTimer = null;
+
+  bgMusic.src = musicConfig.src;
 
   function setMusicUi(on) {
     musicOn = on;

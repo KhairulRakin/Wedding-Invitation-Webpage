@@ -8,8 +8,9 @@
   var Wedding = window.Wedding;
 
   Wedding.modules.rsvp = function rsvp() {
-    var RSVP_EMAIL = "sflshahed@gmail.com";
-    var ENDPOINT = "https://formsubmit.co/ajax/" + RSVP_EMAIL;
+    var rsvpConfig = window.WEDDING.rsvp;
+    var RSVP_EMAIL = rsvpConfig.email;
+    var ENDPOINT = rsvpConfig.endpoint;
     var form = Wedding.el("rsvpForm");
     var success = Wedding.el("rsvpSuccess");
     var text = Wedding.el("rsvpSuccessText");
@@ -96,7 +97,7 @@
           Name: fullName,
           Attending: attending === "yes" ? "Yes, attending" : "Cannot attend",
           Message: note || "—",
-          _subject: "New RSVP — Md. Shahed & Ms. Priyanka Wedding",
+          _subject: rsvpConfig.subject,
           _template: "table",
           _captcha: "false",
           _honey: "",

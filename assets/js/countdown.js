@@ -7,7 +7,7 @@
   var Wedding = window.Wedding;
 
   Wedding.modules.countdown = function countdown() {
-    var weddingTime = new Date("2027-01-27T20:00:00").getTime();
+    var weddingTime = new Date(window.WEDDING.event.startLocal).getTime();
     var cd = {
       days: Wedding.el("cd-days"),
       hours: Wedding.el("cd-hours"),
