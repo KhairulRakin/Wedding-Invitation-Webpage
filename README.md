@@ -4,14 +4,6 @@ A single-page wedding invitation with Vanilla HTML, CSS and JavaScript — no
 runtime dependencies and nothing to compile. The only build step is the deploy
 copy that keeps internal files off the CDN.
 
-## Open it
-
-Double-click `index.html`. Every feature works from `file://`: the wax seal,
-background music, scratch-to-reveal card, calendar download and RSVP.
-
-For local development, or when you want real HTTP semantics:
-
-
 ## Browser support
 
 Current Edge, Chrome, Firefox and Safari. The page degrades gracefully: without
